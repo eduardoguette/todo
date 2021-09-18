@@ -39,7 +39,7 @@ export const TodoApp = () => {
   };
 
   return (
-    <div className="px-4 text-midnight-500 relative min-h-screen wrapper-1000 mx-auto">
+    <div className="px-4 text-midnight-500 relative wrapper-1000 mx-auto">
       <TodoList
         state={todos}
         handleDeleteTodo={handleDeleteTodo}

@@ -11,4 +11,7 @@
   .h-05 {
     height: 0.125rem;
   }
+  .min-h-95 {
+    min-height: 95vh;
+  }
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { CopyIcon } from "../icons/CopyIcon";
 import { DeleteIcon } from "../icons/DeleteIcon";
 import { DoneIcon } from "../icons/DoneIcon";
+import { RealoadIcon } from "../icons/RealoadIcon";
 import { WorkinkIcon } from "../icons/WorkinkIcon";
 
 export const TodoMenu = ({
@@ -10,6 +11,8 @@ export const TodoMenu = ({
   handleDeleteTodo,
   handleDoneTodo,
   id,
+  done,
+  doing
 }) => {
   return (
     <>
@@ -23,8 +26,8 @@ export const TodoMenu = ({
             onClick={() => handleDoneTodo(id)}
             className="flex w-full items-center py-2 px-4 gap-3"
           >
-            <DoneIcon />
-            <span className="pointer-events-none">Done</span>
+            {(!done && !doing) ? <DoneIcon /> : <RealoadIcon />}
+            <span className="pointer-events-none">{(!done && !doing) ? "Done" : "To-do"}</span>
           </button>
         </li>
         <li>
@@ -40,7 +43,7 @@ export const TodoMenu = ({
           <button className="flex w-full items-center py-2 px-4 gap-3">
             <CopyIcon />
             <span className=" pointer-events-none">Copy</span>
-          </button>   
+          </button>
         </li>
         <li>
           <button

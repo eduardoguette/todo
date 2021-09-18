@@ -1,3 +1,6 @@
+<p align="center">
+ <img src="src/assets/todo.png" alt="Logo Todo">
+<p>
 # Todo
 
 ## Tabla de contenido
@@ -15,15 +18,15 @@
 - [Construido con](#construido-con)
 
 ## Descripción
+
 Una Single Page que te ayudará a organizar tu día a día y aumentar tu productividad, tus notas (de momento) se almacenaran en el localStorage de tu navegador.
 <br>
 <br>
 ¡Sácale el máximo a tu productividad con esta App!
 
 ### Desafío
- 
-Crear tu "Todo" definitivo, para que organices tu día a día.
 
+Crear tu "Todo" definitivo, para que organices tu día a día.
 
 - Agregar y quitar funciones
 
@@ -45,7 +48,7 @@ Crear tu "Todo" definitivo, para que organices tu día a día.
 
 - CSS
 
-- Tailwind 
+- Tailwind
 
 - Mobile-first workflow
 

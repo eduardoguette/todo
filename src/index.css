@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+  .top-full {
+    top: 110%;
+  }
+  .wrapper-1000 {
+    width: min(1000px, 95%);
+  }
+  .h-05 {
+    height: 0.125rem;
+  }
+}

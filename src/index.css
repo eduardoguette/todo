@@ -14,4 +14,10 @@
   .min-h-95 {
     min-height: 95vh;
   }
+  .min-h-80 {
+    min-height: 80vh;
+  }
+  .top-18 {
+    top: 4.5rem/* 80px */;
+  }
 }

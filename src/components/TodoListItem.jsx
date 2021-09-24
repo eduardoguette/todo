@@ -12,15 +12,6 @@ export const TodoListItem = ({
   const [showMenu, setShowMenu] = useState(false);
   const handleShowMenu = () => setShowMenu(!showMenu);
 
-  const handleState = (id, done, doing) => {
-    if (!done && !doing) {
-      handleDoingTodo(id);
-    } else if (doing) {
-      handleDoneTodo(id);
-    } else if (done) {
-      handleDoneTodo(id);
-    }
-  };
   return (
     <li
       key={todo.id}
@@ -28,7 +19,7 @@ export const TodoListItem = ({
     >
       <span
         className={"w-full flex items-center py-2 px-4  space-x-4"}
-        onClick={() => handleState(todo.id, todo.done, todo.doing)}
+         
       >
         <BtnDone todo={todo} />
         <p
@@ -48,9 +39,7 @@ export const TodoListItem = ({
           handleDeleteTodo={handleDeleteTodo}
           handleDoingTodo={handleDoingTodo}
           handleDoneTodo={handleDoneTodo}
-          id={todo.id}
-          done={todo.done}
-          doing={todo.doing}
+          todo={todo}
         />
       )}
     </li>

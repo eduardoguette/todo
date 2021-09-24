@@ -8,10 +8,11 @@ export const TodoList = ({
   handleDeleteTodo,
   handleAddTodo,
   handleDoingTodo,
+  session,
 }) => {
   return (
     <>
-      <TodoAdd handleAddTodo={handleAddTodo} />
+      <TodoAdd handleAddTodo={handleAddTodo} session={session} />
       <div className="flex flex-col md:flex-row md:justify-between gap-6">
         <div className="md:w-1/3" aria-label="todo">
           <h3 className="mb-6 font-bold">
@@ -24,8 +25,8 @@ export const TodoList = ({
           <ul className="flex flex-col space-y-4">
             {state.map(
               (todo) =>
-                (!todo.done &&
-                !todo.doing) && (
+                !todo.done &&
+                !todo.doing && (
                   <TodoListItem
                     key={todo.id}
                     todo={todo}
@@ -48,8 +49,8 @@ export const TodoList = ({
           <ul className="flex flex-col space-y-4">
             {state.map(
               (todo) =>
-                (todo.doing  &&
-                !todo.done) && (
+                todo.doing &&
+                !todo.done && (
                   <TodoListItem
                     key={todo.id}
                     todo={todo}

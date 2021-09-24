@@ -10,9 +10,7 @@ export const TodoMenu = ({
   handleDoingTodo,
   handleDeleteTodo,
   handleDoneTodo,
-  id,
-  done,
-  doing
+  todo,
 }) => {
   return (
     <>
@@ -20,19 +18,25 @@ export const TodoMenu = ({
         className="fixed z-10 h-screen w-screen inset-0"
         onClick={handleShowMenu}
       ></div>
-      <ul className="absolute py-2 z-20 text-sm right-0 top-full bg-white shadow-xl rounded-lg w-40">
+      <ul
+        onClick={handleShowMenu}
+        className="absolute py-2 z-20 text-sm right-0 top-full bg-white shadow-xl rounded-lg w-40"
+      >
         <li>
           <button
-            onClick={() => handleDoneTodo(id)}
+            onClick={() => handleDoneTodo(todo)}
             className="flex w-full items-center py-2 px-4 gap-3"
           >
-            {(!done && !doing) ? <DoneIcon /> : <RealoadIcon />}
-            <span className="pointer-events-none">{(!done && !doing) ? "Done" : "To-do"}</span>
+            {todo.done ? <RealoadIcon /> : <DoneIcon />}
+
+            <span className="pointer-events-none">
+              {todo.done ? "Reset" : "Done"}
+            </span>
           </button>
         </li>
         <li>
           <button
-            onClick={() => handleDoingTodo(id)}
+            onClick={() => handleDoingTodo(todo)}
             className="flex w-full items-center py-2 px-4 gap-3"
           >
             <WorkinkIcon />
@@ -47,7 +51,7 @@ export const TodoMenu = ({
         </li>
         <li>
           <button
-            onClick={() => handleDeleteTodo(id)}
+            onClick={() => handleDeleteTodo(todo.id)}
             className="flex items-center w-full  py-2 px-4 gap-3"
           >
             <DeleteIcon /> <span className=" pointer-events-none">Delete</span>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "../hooks/useForm";
 
-export const TodoAdd = ({ handleAddTodo }) => {
+export const TodoAdd = ({ handleAddTodo, session }) => {
   const [{ task }, handeInputChange, reset] = useForm({
     task: "",
   });
@@ -10,10 +10,11 @@ export const TodoAdd = ({ handleAddTodo }) => {
     if (task.trim().length < 1) return;
     const newTodo = {
       id: Date.now(),
+      user_id: session.user.id,
       todo: task,
       done: false,
       doing: false,
-    };
+    }; 
     handleAddTodo(newTodo);
     reset();
   };

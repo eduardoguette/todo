@@ -1,52 +1,104 @@
-import React, { useEffect, useReducer } from "react";
-import { todoReducer } from "../todoReducer";
+import React, { useEffect, /* useReducer, */ useState } from "react";
+import { createTodo, deleteTodo, getTodos, updateTodo } from "../services";
+// import { todoReducer } from "../todoReducer";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
 import { TodoList } from "./TodoList";
+import { ActualDate } from "./ActualDate";
 
-const init = () => {
-  return JSON.parse(localStorage.getItem("todos")) || [];
-};
+/* const init = () => {
+  return getTodos().then((elem) => {
+    return elem;
+  });
+  // return JSON.parse(localStorage.getItem("todos")) || [];
+}; */
 
-export const TodoApp = () => {
-  const [todos, dispatch] = useReducer(todoReducer, [], init);
+export const TodoApp = ({ session }) => {
+  // const [todos, dispatch] = useReducer(todoReducer, [], init);
 
+  const [data, setData] = useState(null);
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+    if (!data) {
+      getTodos().then((elem) => {
+        const [todos] = elem;
+        setData(todos);
+      });
+    }
+    // localStorage.setItem("todos", JSON.stringify(todos));
+    // eslint-disable-next-line
+  }, []);
 
   const handleDoneTodo = (toDo) => {
-    dispatch({
+    updateTodo({ done: !toDo.done, doing: false }, { id: toDo.id }).then(
+      (data) => {
+        getTodos().then((elem) => {
+          const [todos] = elem;
+          setData(todos);
+        });
+      }
+    );
+    /* dispatch({
       type: "done",
       payload: toDo,
-    });
+    }); */
   };
-  const handleDoingTodo = (todoId) => {
-    dispatch({
+  const handleDoingTodo = (toDo) => {
+    console.log(toDo)
+    updateTodo({ doing: true, done: false }, { id: toDo.id }).then(
+      (data) => {
+        getTodos().then((elem) => {
+          const [todos] = elem;
+          setData(todos);
+        });
+      }
+    );
+    /* dispatch({
       type: "doing",
       payload: todoId,
-    });
+    }); */
   };
   const handleAddTodo = (todoId) => {
-    dispatch({
-      type: "add",
-      payload: todoId,
+    createTodo(todoId).then((data) => {
+      const [todo] = data;
+      setData((data) => [...data, todo[0]]);
+      // dispatch({
+      //   type: "add",
+      //   payload: todoId,
+      // });
     });
   };
-  const handleDeleteTodo = (todoId) => {
-    dispatch({
+  const handleDeleteTodo = (todoId) => { 
+    deleteTodo({ id: todoId }).then((data) => {
+      getTodos().then((elem) => {
+        const [todos] = elem;
+        setData(todos);
+      });
+    });
+    /*  dispatch({
       type: "delete",
       payload: todoId,
-    });
+    }); */
   };
 
   return (
-    <div className="px-4 text-midnight-500 relative wrapper-1000 mx-auto">
-      <TodoList
-        state={todos}
-        handleDeleteTodo={handleDeleteTodo}
-        handleDoneTodo={handleDoneTodo}
-        handleAddTodo={handleAddTodo}
-        handleDoingTodo={handleDoingTodo}
-      />
-    </div>
+    <>
+      <div className="text-midnight-500 relative mx-auto">
+        <Header />
+        <div className="wrapper-1000 mx-auto px-6 min-h-80">
+          <ActualDate />
+          {data && (
+            <TodoList
+              session={session}
+              state={data}
+              handleDeleteTodo={handleDeleteTodo}
+              handleDoneTodo={handleDoneTodo}
+              handleAddTodo={handleAddTodo}
+              handleDoingTodo={handleDoingTodo}
+            />
+          )}
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 };

@@ -26,7 +26,7 @@ export const ActualDate = () => {
     calculateDay();
   }, []);
   return (
-    <h2 className="text-midnight-500 px-4 font-bold flex flex-col wrapper-1000 mx-auto mb-4">
+    <h2 className="text-midnight-500 font-bold flex flex-col mb-4">
       <span className="font-sans text-lg"> {date.day} </span>
       <span className="font-serif text-6xl">{date.date}</span>
     </h2>

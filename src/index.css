@@ -18,6 +18,18 @@
     min-height: 80vh;
   }
   .top-18 {
-    top: 4.5rem/* 80px */;
+    top: 4.5rem /* 80px */;
+  }
+  @media (min-width: 768px) {
+    .md\:h-700 {
+      height: 700px;
+    }
+  }
+  .bg-image-2 {
+    background-image: url(bg-wallpaper.png);
+    background-size: cover;
+  }
+  .scroll-behavior-smoot{
+    scroll-behavior: smooth;
   }
 }

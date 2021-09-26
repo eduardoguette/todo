@@ -1,44 +1,29 @@
-import { useEffect, useState } from "react"; 
-import { TodoApp } from "./components/TodoApp";
+import { useEffect, useState } from "react";
+import { Router } from "./HOC/Router";
 import { supabase } from "./services/supabaseClient";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
- 
-import { SignUp } from "./components/SignUp";
-import { SignIn } from "./components/SignIn";
-import { ProfileUser } from "./components/ProfileUser";
+import { UserContext } from "./services/useContext";
 
 function App() {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState({
+    log: supabase.auth.session(),
+    loading: false,
+    data: null,
+  });
 
   useEffect(() => {
-    setSession(supabase.auth.session());
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
+    supabase.auth.onAuthStateChange((_event, resp) => {
+      setSession({
+        log: resp,
+        loading: false,
+        data: null,
+      });
     });
   }, []);
 
   return (
-    <>
-      <Router>
-        <div className="font-sans bg-gray-50 max-w-full min-h-95 mx-auto">
-          <Switch>
-            <Route exact path="/profile">
-              {session ? <ProfileUser session={session} /> : <SignIn />}
-            </Route>
-            <Route exact path="/signin">
-              {session ? <TodoApp session={session} /> : <SignIn />}
-            </Route>
-            <Route exact path="/signup">
-              {session ? <TodoApp session={session}/> : <SignUp />}
-            </Route>
-            <Route exact path="/">
-              {session ? <TodoApp session={session}/> : <SignIn />}
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    </>
+    <UserContext.Provider value={{ session, setSession }}>
+      <Router />
+    </UserContext.Provider>
   );
 }
 

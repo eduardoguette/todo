@@ -34,3 +34,7 @@ export const deleteTodo = async (id) => {
   const { data, error } = await supabase.from("todos").delete().match(id);
   return [data, error];
 };
+export const recoveryPassword = async (email) => {
+  const { data, error } = supabase.auth.api.resetPasswordForEmail(email)
+  return [data, error];
+}

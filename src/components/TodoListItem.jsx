@@ -25,11 +25,11 @@ export const TodoListItem = ({
         <p
           className={
             todo.done
-              ? "w-full line-through opacity-70 text-sm font-medium break-all"
-              : "text-sm w-full font-medium break-all"
+              ? "w-full line-through opacity-70 text-sm font-medium break-word"
+              : "text-sm w-full font-medium break-word"
           }
         >
-          {todo.todo}
+          {todo.task}
         </p>
       </span>
       <BtnOptions handleShowMenu={handleShowMenu} />

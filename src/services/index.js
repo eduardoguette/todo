@@ -35,6 +35,6 @@ export const deleteTodo = async (id) => {
   return [data, error];
 };
 export const recoveryPassword = async (email) => {
-  const { data, error } = supabase.auth.api.resetPasswordForEmail(email)
+  const { data, error } = supabase.auth.api.resetPasswordForEmail(email);
   return [data, error];
-}
+};

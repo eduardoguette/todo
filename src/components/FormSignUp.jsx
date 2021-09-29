@@ -23,7 +23,7 @@ export const FormSignUp = () => {
     // eslint-disable-next-line
   }, []);
 
-  const handleSubmit = async (evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
     setSession({
       log: null,
@@ -43,9 +43,14 @@ export const FormSignUp = () => {
           window.scrollTo(0,0)
           return;
         }
+        setSession({
+          log: "Check your inbox for the next steps. If you don't receive an email, and it's not in your spam folder this could mean you signed up with a different address.",
+          loading: false,
+          data: null,
+        });
         reset();
       });
-    }, 1000);
+    }, 500);
   };
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-1">

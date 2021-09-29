@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, memo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "../hooks/useForm";
 import { LoaderIcon } from "../icons/LoaderIcon";
 import { logIn } from "../services";
 import { UserContext } from "../services/useContext";
 
-export const FormSignIn = () => {
+export const FormSignIn = memo(() => {
   const { session, setSession } = useContext(UserContext);
 
-  const [formValues, handeInputChange, reset] = useForm({
+  const [formValues, handeInputChange] = useForm({
     email: "",
     password: "",
   });
@@ -23,27 +23,29 @@ export const FormSignIn = () => {
     // eslint-disable-next-line
   }, []);
 
-  const handleSubmit = async (evt) => {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
+
     setSession({
-      log: null,
+      ...session,
       loading: true,
-      data: null,
     });
     setTimeout(() => {
       logIn(formValues).then((resp) => {
         const [a, , c] = resp;
-        if (!a) {
+        if (a) {
           setSession({
+            ...session,
+            log: a.aud,
+            loading: false,
+          });
+        } else {
+          setSession({
+            ...session,
             log: c.message,
             loading: false,
-            data: null,
           });
-          
-          window.scrollTo(0,0)
-          return;
         }
-        reset();
       });
     }, 500);
   };
@@ -91,4 +93,4 @@ export const FormSignIn = () => {
       </button>
     </form>
   );
-};
+});

@@ -11,7 +11,6 @@ export const TodoList = ({
 }) => {
   const { session } = useContext(UserContext);
 
- 
   return (
     <>
       <TodoAdd handleAddTodo={handleAddTodo} session={session} />
@@ -30,8 +29,8 @@ export const TodoList = ({
                 !todo.done &&
                 !todo.doing && (
                   <TodoListItem
-                    key={todo.id}
                     todo={todo}
+                    key={todo.id}
                     handleDeleteTodo={handleDeleteTodo}
                     handleDoneTodo={handleDoneTodo}
                     handleDoingTodo={handleDoingTodo}

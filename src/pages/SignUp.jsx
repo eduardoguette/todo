@@ -10,7 +10,7 @@ export const SignUp = () => {
   return (
     <section className="max-w-lg sm:max-w-4xl mx-auto  flex flex-col justify-center min-h-screen">
       <div className="bg-white flex flex-col sm:flex-row shadow-sm">
-        <Message />
+        <Message state="true"/>
         <ImageSign />
         <div className="w-full p-8">
           <HeaderForm state="Sing up" />

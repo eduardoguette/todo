@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "../hooks/useForm";
+import { UserContext } from "../services/useContext";
 
-export const TodoAdd = ({ handleAddTodo, session }) => {
+export const TodoAdd = ({ handleAddTodo }) => {
+  const { session } = useContext(UserContext);
   const [{ task }, handeInputChange, reset] = useForm({
     task: "",
   });
@@ -10,8 +12,9 @@ export const TodoAdd = ({ handleAddTodo, session }) => {
     if (task.trim().length < 1) return;
     const newTodo = {
       id: Date.now(),
-      user_id: session.user.id,
-      todo: task,
+      inserted_at: new Date().toISOString(),
+      user_id: session.log.user.id,
+      task: task,
       done: false,
       doing: false,
     }; 

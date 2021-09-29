@@ -4,7 +4,7 @@ import { Message } from "../components/Message";
 
 export const ForgotPass = () => {
   return (
-    <section className="max-w-lg sm:max-w-4xl mx-auto  flex flex-col justify-center min-h-screen">
+    <section className="max-w-lg sm:max-w-md mx-auto  flex flex-col justify-center min-h-screen">
       <div className="bg-white flex flex-col sm:flex-row shadow-sm">
         <Message state={true} />
         <div className="w-full p-8">

@@ -1,8 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  /* useReducer, */ useState,
-} from "react";
+import React, { useContext, useEffect, memo } from "react";
 import { createTodo, deleteTodo, getTodos, updateTodo } from "../services";
 // import { todoReducer } from "../todoReducer";
 import { Footer } from "../components/Footer";
@@ -18,18 +14,19 @@ import { UserContext } from "../services/useContext";
   // return JSON.parse(localStorage.getItem("todos")) || [];
 }; */
 
-export const TodoApp = () => {
+export const TodoApp = memo(() => {
   const { session, setSession } = useContext(UserContext);
   // const [todos, dispatch] = useReducer(todoReducer, [], init);
   // eslint-disable-next-line
-  const [data, setData] = useState(null);
   useEffect(() => {
     if (!session.data) {
       getTodos().then((resp) => {
         const [data] = resp;
+        console.log(data);
         setSession({
           ...session,
-          data,
+          data: data,
+          loading: false,
         });
       });
     }
@@ -54,14 +51,18 @@ export const TodoApp = () => {
     }); */
   };
   const handleDoingTodo = (toDo) => {
+    setSession({
+      ...session,
+      loading: true,
+    });
     updateTodo({ doing: true, done: false }, { id: toDo.id }).then((data) => {
       getTodos().then((elem) => {
         const [todos] = elem;
         setSession({
           ...session,
           data: todos,
+          loading: false,
         });
-        console.log(session)
       });
     });
     /* dispatch({
@@ -69,22 +70,33 @@ export const TodoApp = () => {
       payload: todoId,
     }); */
   };
-  const handleAddTodo = (todoId) => {
-    createTodo(todoId).then((data) => {
-      const [todo] = data;
-      setData((data) => [...data, todo[0]]);
-      // dispatch({
-      //   type: "add",
-      //   payload: todoId,
-      // });
+  const handleAddTodo = (newTodo) => {
+    setSession({
+      ...session,
+      loading: true,
+    });
+
+    createTodo(newTodo).then((data) => {
+      const [resp] = data;
+      const [todo] = resp;
+      setSession({
+        ...session,
+        loading: false,
+        data: [...session.data, todo],
+      });
     });
   };
   const handleDeleteTodo = (todoId) => {
+    setSession({
+      ...session,
+      loading: true,
+    });
     deleteTodo({ id: todoId }).then((data) => {
       getTodos().then((elem) => {
         const [todos] = elem;
         setSession({
           ...session,
+          loading: false,
           data: todos,
         });
       });
@@ -114,4 +126,4 @@ export const TodoApp = () => {
       <Footer />
     </>
   );
-};
+});

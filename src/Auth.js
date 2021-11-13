@@ -17,7 +17,6 @@ export default function Auth() {
       setLoading(false)
     }
   }
-
   return (
     <div className="row flex flex-center">
       <div className="col-6 form-widget">
